@@ -1,11 +1,14 @@
 using System.Collections;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class agentGenerator : MonoBehaviour
 {
 
     public GameObject AgentPrefab;
     private Vector3 startPos;
+    public Text agentNum;
+    public AudioClip ding;
 
     int agentCounter;
 
@@ -19,9 +22,11 @@ public class agentGenerator : MonoBehaviour
     {
         GameObject.Instantiate(AgentPrefab, startPos, Quaternion.identity);
         agentCounter++;
+        agentNum.text = agentCounter.ToString();
+        AudioSource.PlayClipAtPoint(ding, transform.position);
         if (agentCounter < 10)
         {
-            yield return new WaitForSeconds(4);
+            yield return new WaitForSeconds(10);
             StartCoroutine(SpawnAgent());
         }
     }
